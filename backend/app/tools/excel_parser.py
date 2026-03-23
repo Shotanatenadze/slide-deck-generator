@@ -449,27 +449,17 @@ def parse_file_with_claude(
     else:
         raise ValueError(f"Unsupported file type: {ext}")
 
-    # Call Claude with retry on rate limits
-    import time
-
-    max_retries = 3
-    for attempt in range(max_retries):
-        try:
-            response = anthropic_client.messages.create(
-                model="claude-sonnet-4-20250514",
-                max_tokens=4096,
-                system=_PARSE_SYSTEM_PROMPT,
-                messages=[{"role": "user", "content": content}],
-            )
-            break
-        except Exception as exc:
-            if "rate_limit" in str(exc).lower() and attempt < max_retries - 1:
-                wait = 15 * (attempt + 1)
-                logger.warning("Rate limited for %s, retrying in %ds...", filename, wait)
-                time.sleep(wait)
-                continue
-            logger.exception("Claude call failed in parse_file_with_claude for %s", filename)
-            raise RuntimeError(f"Claude API call failed: {exc}") from exc
+    # Call Claude (single attempt — no blocking retries that freeze the event loop)
+    try:
+        response = anthropic_client.messages.create(
+            model="claude-sonnet-4-20250514",
+            max_tokens=4096,
+            system=_PARSE_SYSTEM_PROMPT,
+            messages=[{"role": "user", "content": content}],
+        )
+    except Exception as exc:
+        logger.exception("Claude call failed in parse_file_with_claude for %s", filename)
+        raise RuntimeError(f"Claude API call failed: {exc}") from exc
 
     # Extract text from response
     text = ""
