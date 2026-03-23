@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 40" fill="none">
+  <text
+    x="0"
+    y="28"
+    font-family="system-ui, -apple-system, 'Segoe UI', sans-serif"
+    font-size="26"
+    font-weight="700"
+    letter-spacing="3"
+    fill="#0f2e55"
+  >PERFORMA</text>
+  <rect x="0" y="34" width="180" height="2.5" rx="1.25" fill="#106280" opacity="0.6"/>
+</svg>
