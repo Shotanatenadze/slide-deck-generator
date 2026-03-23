@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: slide-deck-generator-api
+    runtime: python
+    region: ohio
+    rootDir: backend
+    buildCommand: pip install .
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: ANTHROPIC_API_KEY
+        sync: false
+      - key: UPLOAD_DIR
+        value: /tmp/uploads
+      - key: GENERATED_DIR
+        value: /tmp/generated
+    healthCheckPath: /health
