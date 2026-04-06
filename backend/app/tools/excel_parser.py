@@ -273,7 +273,7 @@ def _extract_holdings_from_snapshot(file_path: str) -> list[dict]:
     col_map: dict[str, int] = {}
     target_headers = {
         "identifier": "identifier", "description": "issuer", "sector": "sector",
-        "performa sector 2": "sector", "performa sector category": "sector_category",
+        "sector 2": "sector", "sector category": "sector_category",
         "sector category": "sector_category",
         "duration": "duration", "yield": "yield_to_worst",
         "s&p rating": "sp_rating", "s&p": "sp_rating",

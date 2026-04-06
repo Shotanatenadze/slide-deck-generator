@@ -15,9 +15,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Slide Deck Generator | Performa",
+  title: "Slide Deck Generator",
   description:
-    "Automated generation of personalized quarterly client meeting PowerPoint decks for Performa LTD.",
+    "Automated generation of personalized quarterly client meeting PowerPoint decks.",
 };
 
 export default function RootLayout({

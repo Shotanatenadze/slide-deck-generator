@@ -19,7 +19,7 @@ from app.tools import pptx_builder
 logger = logging.getLogger(__name__)
 
 COMMENTARY_SYSTEM_PROMPT = """\
-You are a senior investment analyst at Performa, a boutique asset management firm \
+You are a senior investment analyst at a boutique asset management firm \
 serving captive insurance clients. You write clear, professional slide commentary \
 for quarterly client review decks.
 

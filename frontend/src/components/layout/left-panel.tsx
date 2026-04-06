@@ -83,8 +83,8 @@ export function LeftPanel() {
       {/* Header */}
       <div className="flex items-center gap-3 pb-2 border-b border-gray-100">
         <Image
-          src="/performa-logo.svg"
-          alt="Performa"
+          src="/logo.svg"
+          alt="Logo"
           width={140}
           height={32}
           priority

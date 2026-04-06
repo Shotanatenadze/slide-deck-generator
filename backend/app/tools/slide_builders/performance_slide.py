@@ -81,7 +81,7 @@ def build(prs, data: dict, commentary: str | None = None) -> None:
         categories,
         series_list,
         left=0.8, top=1.2, width=11.5, height=5.0,
-        title="Net Performance (Includes Performa Oversight Fee)",
+        title="Net Performance (Includes Oversight Fee)",
     )
 
     # Performance table below/beside chart — small summary table

@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-**Slide Deck Generator** — Automated generation of personalized quarterly client meeting PowerPoint decks for Performa LTD, a boutique asset management firm serving 100+ captive insurance clients.
+**Slide Deck Generator** — Automated generation of personalized quarterly client meeting PowerPoint decks for a boutique asset management firm serving 100+ captive insurance clients.
 
 **Delivery partner:** Provectus. **Architecture:** Cloud-agnostic multi-agent system.
 

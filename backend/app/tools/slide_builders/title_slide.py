@@ -36,7 +36,7 @@ def build(prs, data: dict) -> None:
     txbox = slide.shapes.add_textbox(Inches(0.8), Inches(0.3), Inches(10), Inches(0.6))
     tf = txbox.text_frame
     p = tf.paragraphs[0]
-    p.text = "PERFORMA"
+    p.text = data.get("firm_name", "INVESTMENT ADVISORY")
     p.font.size = Pt(36)
     p.font.bold = True
     p.font.color.rgb = WHITE
@@ -46,7 +46,7 @@ def build(prs, data: dict) -> None:
     sub = slide.shapes.add_textbox(Inches(0.8), Inches(0.85), Inches(10), Inches(0.4))
     tf2 = sub.text_frame
     p2 = tf2.paragraphs[0]
-    p2.text = "Investment Advisory"
+    p2.text = data.get("firm_subtitle", "Portfolio Management")
     p2.font.size = Pt(16)
     p2.font.color.rgb = RGBColor(0xBB, 0xCE, 0xDA)
     p2.font.name = FONT_NAME

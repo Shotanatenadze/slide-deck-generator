@@ -2,7 +2,7 @@
 
 import { useCallback, useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Upload, FileSpreadsheet, FileText, X, FolderOpen } from 'lucide-react';
+import { Upload, FileSpreadsheet, FileText, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useGenerationContext } from '@/app/providers';
 import type { UploadedFile } from '@/types/generation';
@@ -33,38 +33,7 @@ export function FileUploadZone({ onFilesSelected, onFileRemoved }: FileUploadZon
   const [isDragOver, setIsDragOver] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const [loadingSamples, setLoadingSamples] = useState(false);
   const isDisabled = state.status === 'uploading' || state.status === 'generating';
-
-  const SAMPLE_FILES = [
-    'SAMPLE REPORT DATA AGG 2.xlsx',
-    'SAMPLE REPORT DATA SMA 2.xlsx',
-    'SAMPLE HOLDINGS REPORT.xlsx',
-  ];
-
-  const loadSampleFiles = useCallback(async () => {
-    if (isDisabled || loadingSamples) return;
-    setLoadingSamples(true);
-    try {
-      const files: File[] = [];
-      for (const name of SAMPLE_FILES) {
-        const res = await fetch(`/samples/${encodeURIComponent(name)}`);
-        const blob = await res.blob();
-        files.push(new File([blob], name, { type: blob.type }));
-      }
-      const newUploadedFiles: UploadedFile[] = files.map((f) => ({
-        name: f.name,
-        size: f.size,
-        type: detectFileType(f.name),
-      }));
-      setFiles(newUploadedFiles);
-      onFilesSelected(files);
-    } catch (err) {
-      console.error('Failed to load sample files:', err);
-    } finally {
-      setLoadingSamples(false);
-    }
-  }, [isDisabled, loadingSamples, setFiles, onFilesSelected]);
 
   const handleFiles = useCallback(
     (fileList: FileList) => {
@@ -177,21 +146,6 @@ export function FileUploadZone({ onFilesSelected, onFileRemoved }: FileUploadZon
         />
       </div>
 
-      {/* Load sample files */}
-      {state.uploadedFiles.length === 0 && (
-        <button
-          onClick={loadSampleFiles}
-          disabled={isDisabled || loadingSamples}
-          className={cn(
-            'mt-2 flex items-center justify-center gap-2 w-full py-2 rounded-lg text-xs font-medium transition-all',
-            'border border-blue-200 bg-blue-50 text-blue-700 hover:bg-blue-100',
-            (isDisabled || loadingSamples) && 'opacity-50 cursor-not-allowed'
-          )}
-        >
-          <FolderOpen className="w-3.5 h-3.5" />
-          {loadingSamples ? 'Loading...' : 'Load sample Clearwater files'}
-        </button>
-      )}
 
       {/* Uploaded files */}
       <AnimatePresence mode="popLayout">

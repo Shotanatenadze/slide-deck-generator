@@ -35,7 +35,7 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(
     title="Slide Deck Generator",
-    description="Automated quarterly client meeting PowerPoint generator for Performa LTD",
+    description="Automated quarterly client meeting PowerPoint generator",
     version="0.1.0",
     lifespan=lifespan,
 )

@@ -2,7 +2,7 @@
 
 ## Client Profile
 
-**Performa LTD** — Boutique asset management firm exclusively serving captive insurance companies.
+Boutique asset management firm exclusively serving captive insurance companies.
 
 - Founded 1992, ~11 team members
 - Offices: Hamilton (Bermuda HQ), Charleston SC, Burlington VT
@@ -12,7 +12,7 @@
 
 ## Problem Statement
 
-Each quarter, Performa manually builds personalized client meeting decks in PowerPoint. The process:
+Each quarter, the firm manually builds personalized client meeting decks in PowerPoint. The process:
 
 1. Log into Clearwater Analytics portal, download portfolio data as Excel
 2. Clean up Clearwater's broken formatting (weird Excel output, sometimes export PDF-to-Excel as workaround)
@@ -49,10 +49,10 @@ Automate the generation of personalized client meeting PowerPoint decks from Cle
 
 ## Compliance & Security Constraints
 
-- **SEC regulated** — Performa is an SEC-registered investment adviser. All AI usage must be documented for SEC compliance.
+- **SEC regulated** — The firm is an SEC-registered investment adviser. All AI usage must be documented for SEC compliance.
 - **Data privacy** — Client portfolio data is highly sensitive (comparable to HIPAA-level sensitivity per David). Must not flow to third-party AI training sets.
 - **Human-in-the-loop** — Every generated deck must be reviewed and approved by a human before delivery to clients.
-- **Existing tech stack** — Performa is an Azure / Microsoft 365 shop. All applications are cloud-based. Bloomberg for trading/OMS.
+- **Existing tech stack** — The firm is an Azure / Microsoft 365 shop. All applications are cloud-based. Bloomberg for trading/OMS.
 - **AI policy in progress** — Head of compliance is writing internal AI usage policies. Investment team AI usage is locked down pending policy completion.
 
 ## Success Criteria

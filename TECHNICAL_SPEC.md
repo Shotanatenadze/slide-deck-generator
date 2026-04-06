@@ -48,7 +48,7 @@ Clients with blended portfolios: Fixed Income SMA + ETFs (equities, high yield, 
 - Portfolio Roll Forward: beginning MV, transfers in/out, income, expenses, realized G/L, unrealized G/L change, ending MV
 
 ### Type 2: SMA (Separately Managed Account — Fixed Income only)
-Clients with individual bond portfolios managed by Performa.
+Clients with individual bond portfolios managed by the firm.
 
 **Dynamic data needed:**
 - Summary Statistics: market value, credit quality, yield to maturity, average duration, # holdings (vs index)
@@ -78,7 +78,7 @@ Clients with individual bond portfolios managed by Performa.
 ### File 2: SMA Holdings
 - **Sheet:** `SMA Holdings (JJ)` (sheet name may vary per client)
 - **Structure:** 14 columns, one row per holding
-- **Columns:** Account, Account ID, BBG Account Code, Identifier, Description, Performa Sector 2, Performa Sector Category, Duration, Yield, S&P Rating, Moody's Rating, Final Maturity, Base Market Value + Accrued, % of Market Value + Accrued
+- **Columns:** Account, Account ID, BBG Account Code, Identifier, Description, Sector 2, Sector Category, Duration, Yield, S&P Rating, Moody's Rating, Final Maturity, Base Market Value + Accrued, % of Market Value + Accrued
 - **Header rows:** Report name (row 1), Account (row 2), As of date (row 3), Base Currency (row 4), then column headers (row 5), then data
 - **Quirks:**
   - Duration and Yield as raw floats
@@ -108,7 +108,7 @@ Clients with individual bond portfolios managed by Performa.
 **Slide dimensions:** 9144000 x 6858000 EMU (standard 10" x 7.5" widescreen)
 
 **Branding elements:**
-- Performa logo (Picture shapes, positioned consistently)
+- Firm logo (Picture shapes, positioned consistently)
 - Color scheme from master template
 - Consistent header pattern: "[Title 1]" text box + "[Line 309]" separator + "[Rectangle]" subtitle
 - Slide numbers in "Slide Number Placeholder 1"

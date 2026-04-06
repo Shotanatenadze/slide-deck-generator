@@ -2,7 +2,7 @@
 Native PPTX chart utilities.
 
 Creates pie and bar charts using python-pptx's chart API.
-All charts use Performa branding colors and Poppins / Calibri fonts.
+All charts use branding colors and Poppins / Calibri fonts.
 """
 
 from __future__ import annotations

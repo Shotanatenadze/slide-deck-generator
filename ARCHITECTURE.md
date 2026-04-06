@@ -9,7 +9,7 @@
 3. **Data sensitivity** — Client portfolio data must not leave controlled infrastructure. No third-party AI training exposure.
 4. **Low volume, high value** — ~200-400 decks/year. Accuracy and quality matter more than throughput.
 5. **Human-in-the-loop** — Generated decks are drafts requiring analyst review/approval.
-6. **Client is Azure-native** — Performa runs Microsoft 365 / Azure. Solution is cloud-agnostic — can deploy on Azure, AWS, GCP, or on-premise.
+6. **Client is Azure-native** — The firm runs Microsoft 365 / Azure. Solution is cloud-agnostic — can deploy on Azure, AWS, GCP, or on-premise.
 
 ---
 
@@ -44,7 +44,7 @@ The system has three distinct data sources, each owned by a different agent:
 │  │   contributions,     │ │ - Benchmark def. │ │ - Market data vendor │ │
 │  │   allocation)        │ │ - Domicile rules │ │ - Manually uploaded  │ │
 │  │ - SMA Holdings       │ │ - Entity type    │ │   quarterly brief    │ │
-│  │   (per-bond detail)  │ │ - NAIC limits    │ │ - Performa's own     │ │
+│  │   (per-bond detail)  │ │ - NAIC limits    │ │ - The firm's own      │ │
 │  │                      │ │                  │ │   published content  │ │
 │  │ Ingestion: Manual    │ │ Ingestion:       │ │   (Market Updates,   │ │
 │  │ Excel upload (no API)│ │ Database config   │ │   Fed Dashboard)    │ │
@@ -469,16 +469,16 @@ The exact source for market context is **TBD** (to be determined during Discover
 
 | Source | What it provides | Ingestion method | Feasibility |
 |--------|-----------------|------------------|-------------|
-| **Manual upload** (quarterly brief) | Performa's own market commentary as a Word/PDF document | File upload via web app, stored in object storage | Simplest. Mirrors current process. |
-| **Performa published content** | Their Quarterly Market Updates, Market Perspectives, Fed Translation Dashboard (already authored internally) | Scrape from performa.com or upload | Low effort — content already exists |
-| **Bloomberg Terminal / Data License** | Benchmark returns, yield curves, credit spreads, economic indicators | Bloomberg API (B-PIPE or Data License) or manual export | Performa already has Bloomberg — check license terms |
+| **Manual upload** (quarterly brief) | The firm's own market commentary as a Word/PDF document | File upload via web app, stored in object storage | Simplest. Mirrors current process. |
+| **Firm published content** | Their Quarterly Market Updates, Market Perspectives, Fed Translation Dashboard (already authored internally) | Scrape from firm website or upload | Low effort — content already exists |
+| **Bloomberg Terminal / Data License** | Benchmark returns, yield curves, credit spreads, economic indicators | Bloomberg API (B-PIPE or Data License) or manual export | The firm already has Bloomberg — check license terms |
 | **FRED (Federal Reserve Economic Data)** | Fed funds rate, Treasury yields, inflation data, employment data | Free REST API (api.stlouisfed.org) | Free, reliable, covers macro slides |
 | **Market data vendor** (e.g., Refinitiv, FactSet) | Broad market data, index returns, sector performance | API integration | Higher cost, more data than needed |
 | **News/FOMC feeds** | FOMC statements, meeting minutes, press conference transcripts | Fed website scrape or structured feed | Feeds the "Fed Translation Dashboard" content |
 
 **Phase 1 approach (recommended):** Dual-input model —
 1. **Structured data** from a free/existing source (FRED API or Bloomberg export) for chart data points (yields, spreads, index levels)
-2. **Narrative content** from manual upload — Performa uploads their quarterly market brief (they already write this) as a Word doc or structured text
+2. **Narrative content** from manual upload — the firm uploads their quarterly market brief (they already write this) as a Word doc or structured text
 
 This mirrors the current process (humans write the market commentary) while adding structured data for charts that today are manually built.
 
@@ -487,7 +487,7 @@ This mirrors the current process (humans write the market commentary) while addi
 | Tool | Purpose |
 |------|---------|
 | `read_file(bucket, key)` | Fetch uploaded market context file from object storage |
-| `parse_market_brief(file_path)` | Extract structured sections from Performa's market commentary doc (headings, bullet points, key figures) |
+| `parse_market_brief(file_path)` | Extract structured sections from the firm's market commentary doc (headings, bullet points, key figures) |
 | `fetch_market_context(quarter, source_type)` | Pluggable adapter — fetch market data from configured source (file upload, API, etc.) |
 | `get_macro_indicators(date_range)` | Pull key macro data points: Fed funds rate, 10Y Treasury yield, S&P 500 return, credit spreads, unemployment rate |
 | `get_index_returns(index_ids[], period)` | Retrieve benchmark index returns for the reporting period |
@@ -498,7 +498,7 @@ This mirrors the current process (humans write the market commentary) while addi
 
 The Market Data Agent accepts **one or both** of:
 
-1. **Uploaded market context file** (storage key) — Performa's authored quarterly brief
+1. **Uploaded market context file** (storage key) — the firm's authored quarterly brief
    - Could be .docx, .pdf, or structured .json
    - Contains: narrative commentary, key themes, "Where We Are" summary, "Things to Watch" outlook
 2. **Structured market data** (fetched via adapter tool) — numerical data points
@@ -549,7 +549,7 @@ The Market Data Agent accepts **one or both** of:
     "economic": { "fed_funds_rate": 0.0475, "unemployment_rate": 0.042, "nfp_3mo_avg": 29000, "cpi_yoy": 0.027 }
   },
 
-  "market_update_template_key": "performa-deck-gen/templates/market-update/Q3-2025.pptx",
+  "market_update_template_key": "deck-gen/templates/market-update/Q3-2025.pptx",
   "template_is_current": true,
 
   "warnings": [],
@@ -583,7 +583,7 @@ Market Context Source(s)
 #### Phase 2+ expansion
 
 As the market context source matures, this agent absorbs:
-- **Auto-generated commentary:** Given structured market data + Performa's historical commentary style, draft new quarter's commentary for human review
+- **Auto-generated commentary:** Given structured market data + the firm's historical commentary style, draft new quarter's commentary for human review
 - **Fed Translation Dashboard automation:** Ingest FOMC statements and generate the "what this means for captives" briefing
 - **Client-specific market context:** "Given this client's 65% fixed income allocation, the rate cut is particularly relevant because..."
 - **Chart data refresh:** Automatically pull updated data for the market update charts instead of relying on manually-built slides
@@ -710,7 +710,7 @@ vermont_rrg:
 **Output:**
 ```json
 {
-  "deck_storage_key": "performa-deck-gen/generated/2025/CAPE-21/gen-20260315-001.pptx",
+  "deck_storage_key": "deck-gen/generated/2025/CAPE-21/gen-20260315-001.pptx",
   "total_slides": 33,
   "sections_included": ["market_update", "allocation", "performance", "rollforward", "sma_detail", "etf_overviews", "vt_restrictions", "holdings", "disclosures"],
   "sections_skipped": ["cashflow"],
@@ -792,12 +792,12 @@ Every generation starts with a `GenerationRequest` object:
 {
   "client_id": "CAPE-21",
   "report_period": "2024-12-01/2025-11-30",
-  "requested_by": "analyst@performa.com",
+  "requested_by": "analyst@firm.com",
 
   "uploaded_files": {
-    "clearwater_board_report": "performa-deck-gen/uploads/2026-03-15/upload-001/board-report.xlsx",
-    "clearwater_sma_holdings": "performa-deck-gen/uploads/2026-03-15/upload-001/sma-holdings.xlsx",
-    "market_context_brief": "performa-deck-gen/uploads/2026-03-15/upload-001/market-brief.docx"
+    "clearwater_board_report": "deck-gen/uploads/2026-03-15/upload-001/board-report.xlsx",
+    "clearwater_sma_holdings": "deck-gen/uploads/2026-03-15/upload-001/sma-holdings.xlsx",
+    "market_context_brief": "deck-gen/uploads/2026-03-15/upload-001/market-brief.docx"
   },
 
   "analyst_prompt": "Board meeting prep for CAPE-21. Highlight the equity outperformance this quarter. They're considering selling ANGL due to the NAIC downgrade — make sure the compliance impact is clearly shown on the allocation slide. Use bar charts for allocation, not pie. Skip ETF overviews — board knows these well. David and Warren presenting.",
@@ -950,14 +950,14 @@ def write_parsed_output(client_id: str, period: str, data: dict) -> str:
     key = f"parsed/{period}/{client_id}.json"
     store = get_object_store()
     store.put_object(
-        bucket="performa-deck-gen", key=key,
+        bucket="deck-gen", key=key,
         body=json.dumps(data)
     )
-    return f"performa-deck-gen/{key}"
+    return f"deck-gen/{key}"
 
 portfolio_agent = Agent(
     model=AnthropicModel(model_id="claude-sonnet-4-6-20250514"),
-    system_prompt="""You are a Portfolio Data Agent for Performa LTD's deck generation system.
+    system_prompt="""You are a Portfolio Data Agent for the deck generation system.
 
 Your job is to parse Clearwater Analytics Excel exports and produce normalized,
 structured portfolio data. You handle two types of exports:
@@ -1016,7 +1016,7 @@ IMPORTANT:
 
 ### Object Storage Structure
 ```
-performa-deck-gen/
+deck-gen/
 ├── templates/
 │   ├── master/v{N}.pptx
 │   ├── market-update/Q{N}-{YYYY}.pptx
@@ -1093,7 +1093,7 @@ performa-deck-gen/
   "compliance_status": "WARNING",
   "status": "pending_review",
   "generated_at": "2026-03-15T15:10:00Z",
-  "generated_by": "analyst@performa.com",
+  "generated_by": "analyst@firm.com",
   "reviewed_at": null,
   "reviewed_by": null,
   "review_action": null

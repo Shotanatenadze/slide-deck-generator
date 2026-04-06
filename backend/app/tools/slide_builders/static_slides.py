@@ -81,11 +81,10 @@ def build_disclaimer(prs) -> None:
     disclaimer_text = (
         "This report is generated using a third-party proprietary system and is provided "
         "to you as an accommodation in the review of your investment activity. Although the "
-        "informational sources used are deemed to be reliable, Performa Limited (US), LLC "
-        "and P.R.P. Performa Ltd. (collectively, \"Performa\") does not guarantee or make "
+        "informational sources used are deemed to be reliable, the firm does not guarantee or make "
         "any warranty regarding the accuracy, suitability or completeness of such information.\n\n"
         "The data should not be used in lieu of statements received directly from your custodian. "
-        "Performa does not provide tax advice, or legal advice through this site or otherwise.\n\n"
+        "The firm does not provide tax advice, or legal advice through this site or otherwise.\n\n"
         "The contents in this report are for informational purposes only and intended solely for "
         "the user and should not be distributed to any third party without prior written consent. "
         "Opinions, estimates and assumptions expressed herein reflect our judgment as of the date "
@@ -93,8 +92,7 @@ def build_disclaimer(prs) -> None:
         "Any statements regarding performance may not be realized and past performance is not "
         "indicative of future results. Investors should note that the value of any investment "
         "strategy or security may fluctuate and underlying principal values may rise or fall.\n\n"
-        "P.R.P. Performa Ltd. is licensed to conduct investment business by the Bermuda Monetary "
-        "Authority. Performa Limited (US), LLC, is an SEC registered investment advisor."
+        "[Insert applicable regulatory disclosures here.]"
     )
 
     txbox = slide.shapes.add_textbox(
